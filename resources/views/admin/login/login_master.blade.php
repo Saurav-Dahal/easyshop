@@ -30,7 +30,7 @@
 							<h2 class="text-white">Get started with Us</h2>
 							<p class="text-white-50">Sign in to start your session</p>							
 						</div>
-						<div class="p-50 rounded30 box-shadowed b-2 b-dashed">
+						<div class="p-40 rounded30 box-shadowed b-2 b-dashed">
 							<form action="{{route('admin.loginvalidate')}}" method="POST">
                                 @csrf
 								<div class="form-group">
@@ -41,7 +41,7 @@
                                     @endif
 
 									@if(Session::has('error'))
-                                        <div class="alert alert-warning" role="alert">
+                                        <div class="alert alert-error" role="alert">
                                             {{Session::get('error')}}
                                         </div>
                                     @endif

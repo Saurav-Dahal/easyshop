@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Frontend\IndexController;
+use App\Http\Controllers\Backend\BrandController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,13 @@ use App\Http\Controllers\Frontend\IndexController;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+
+// ================================ Index Route ==================================== //
+
+Route::get('/', [IndexController::class, 'index']);
+Route::post('/user/profile/update', [IndexController::class, 'updateUser'])->name('user.profile.update');
+
+// =============================== Index Route Ends ==================================== //
 
 Route::get('/user/profile', function () {
     return view('user.user_profile');
@@ -42,9 +50,16 @@ Route::middleware('admin')->group(function(){
 
 // =========================== Admin Route Ends ================================ //
 
-// ================================ Index Route ==================================== //
+// ================================ Brand Route ==================================== //
+Route::prefix('brand')->group(function(){
+    Route::get('/all', [BrandController::class, 'allBrands'])->name('all.brands');
+    Route::get('/add', [BrandController::class, 'addBrands'])->name('add.brands');
+    Route::post('/store', [BrandController::class, 'storeBrands'])->name('store.brands');
+    Route::get('/edit/{id}', [BrandController::class, 'editBrands']);
+    Route::post('/update/{id}', [BrandController::class, 'updateBrands']);
+    Route::get('/delete/{id}', [BrandController::class, 'deleteBrands']);
 
-Route::get('/', [IndexController::class, 'index']);
-Route::post('/user/profile/update', [IndexController::class, 'updateUser'])->name('user.profile.update');
+});
 
-// =============================== Index Route Ends ==================================== //
+// =============================== Brand Route Ends ==================================== //
+
