@@ -44,6 +44,17 @@ Route::middleware('admin')->group(function(){
     Route::post('admin/profile/update/{id}', [AdminProfileController::class, 'updateProfile']);
     Route::get('admin/profile/password/change', [AdminProfileController::class, 'changeProfilePassword'])->name('admin.password.change');
     Route::post('admin/profile/password/update', [AdminProfileController::class, 'updateProfilePassword'])->name('admin.password.update');
+
+    Route::prefix('brand')->group(function(){
+        Route::get('/all', [BrandController::class, 'allBrands'])->name('all.brands');
+        Route::get('/add', [BrandController::class, 'addBrands'])->name('add.brands');
+        Route::post('/store', [BrandController::class, 'storeBrands'])->name('store.brands');
+        Route::get('/edit/{id}', [BrandController::class, 'editBrands']);
+        Route::post('/update/{id}', [BrandController::class, 'updateBrands']);
+        Route::get('/delete/{id}', [BrandController::class, 'deleteBrands']);
+    
+    });
+    
 });
     Route::get('admin/login', [AdminController::class, 'login'])->middleware('guest:admin')->name('admin.login');
     Route::post('admin/login', [AdminController::class, 'loginvalidate'])->middleware('guest:admin')->name('admin.loginvalidate');
@@ -51,15 +62,15 @@ Route::middleware('admin')->group(function(){
 // =========================== Admin Route Ends ================================ //
 
 // ================================ Brand Route ==================================== //
-Route::prefix('brand')->group(function(){
-    Route::get('/all', [BrandController::class, 'allBrands'])->name('all.brands');
-    Route::get('/add', [BrandController::class, 'addBrands'])->name('add.brands');
-    Route::post('/store', [BrandController::class, 'storeBrands'])->name('store.brands');
-    Route::get('/edit/{id}', [BrandController::class, 'editBrands']);
-    Route::post('/update/{id}', [BrandController::class, 'updateBrands']);
-    Route::get('/delete/{id}', [BrandController::class, 'deleteBrands']);
+// Route::prefix('brand')->middleware('admin')->group(function(){
+//     Route::get('/all', [BrandController::class, 'allBrands'])->name('all.brands');
+//     Route::get('/add', [BrandController::class, 'addBrands'])->name('add.brands');
+//     Route::post('/store', [BrandController::class, 'storeBrands'])->name('store.brands');
+//     Route::get('/edit/{id}', [BrandController::class, 'editBrands']);
+//     Route::post('/update/{id}', [BrandController::class, 'updateBrands']);
+//     Route::get('/delete/{id}', [BrandController::class, 'deleteBrands']);
 
-});
+// });
 
 // =============================== Brand Route Ends ==================================== //
 

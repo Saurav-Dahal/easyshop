@@ -9,22 +9,23 @@
             <div class="col-12">
                 <div class="box">
                     <div class="box-header with-border">
-                        <h4 class="box-title">Add Brands</h4>
+                        <h4 class="box-title">Edit Brands</h4>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
                         <div class="row">
                             <div class="col-12">
-                                <form method="POST" action="{{route('store.brands')}}" enctype="multipart/form-data" >
+                                <form method="POST" action="{{url('brand/update/'.$brands->id)}}" enctype="multipart/form-data" >
                                     @csrf
                                     <div class="row">
                                         <div class="col-12">	
                                             <div class="row">	
                                                 <div class="col-md-6">
                                                     <div class="form-group">
+                                                        <input type="hidden" name="old_image" value="{{$brands->brand_image}}">
                                                         <h5>Brand Name <span class="text-danger">*</span></h5>
                                                         <div class="controls">
-                                                            <input type="text" name="brand_name" id="brand_name" class="form-control"  data-validation-required-message="This field is required"> <div class="help-block"></div>
+                                                            <input type="text" name="brand_name" id="brand_name" class="form-control"  data-validation-required-message="This field is required" value="{{$brands->brand_name}}"> <div class="help-block"></div>
                                                             @error('brand_name')
                                                                 <span class="text-danger">{{ $message }}</span>
                                                             @enderror
@@ -37,16 +38,22 @@
                                                     <div class="form-group">
                                                         <h5>Brand Image <span class="text-danger">*</span></h5>
                                                         <div class="controls">
-                                                            <input type="file" name="brand_image" id="brand_image" class="form-control" > <div class="help-block"></div>
+                                                            <input type="file" name="brand_image" id="brand_image" class="form-control" value="{{$brands->brand_image}}"> <div class="help-block"></div>
                                                             @error('brand_image')
                                                                 <span class="text-danger">{{ $message }}</span>
                                                             @enderror
                                                         </div>
                                                     </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    </br>
+                                                    <div class="form-group">
+                                                        <img src="{{asset($brands->brand_image)}}" style="width: 100px; height: 50px;">
+                                                    </div>
                                                 </div>				
                                             </div>
                                             <div class="text-xs-right">
-                                                <input type="submit" class="btn btn-rounded btn-primary" value="Add">
+                                                <input type="submit" class="btn btn-rounded btn-primary" value="Update">
                                             </div>
                                         </div>
                                     </div>

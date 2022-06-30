@@ -105,7 +105,7 @@
 	      <!-- User Account-->
           <li class="dropdown user user-menu">	
 			<a href="#" class="waves-effect waves-light rounded dropdown-toggle p-0" data-toggle="dropdown" title="User">
-				<img src="{{!empty($loggedinUser->profile_pic)?url('backend/uploads/profile_images/'.$loggedinUser->profile_pic):url('backend/uploads/profile_images/no_image.jpg')}}" alt="">
+				<img src="{{!empty(Auth::guard('admin')->user()->profile_pic)?url('backend/uploads/profile_images/'.Auth::guard('admin')->user()->profile_pic):url('backend/uploads/profile_images/no_image.jpg')}}" alt="">
 			</a>
 			<ul class="dropdown-menu animated flipInX">
 			  <li class="user-body">

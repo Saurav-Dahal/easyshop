@@ -25,7 +25,7 @@ class AdminProfileController extends Controller
 
     public function updateProfile(Request $request, $id)
     {
-        $updateProfile = Admin::find($id);
+        $updateProfile = Admin::findorFail($id);
         $updateProfile->name = $request->name;
         $updateProfile->email = $request->email;
 

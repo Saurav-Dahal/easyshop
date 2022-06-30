@@ -20,19 +20,23 @@
                                     <th>SNo.</th>
                                     <th>Brand Name</th>
                                     <th>Brand Image</th>
+                                    <th>Created At</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach($brands as $item)
                                 <tr>
-                                    <td>1</td>
-                                    <td>System Architect</td>
-                                    <td>Edinburgh</td>
+                                    <td>{{$loop->iteration}}</td>
+                                    <td>{{$item->brand_name}}</td>
+                                    <td><img src="{{url($item->brand_image)}}" alt="brand_image" style="width: 70px; height: 40px;"></td>
+                                    <td>{{$item->created_at}}</td>
                                     <td>
-                                        <a href="#" class="btn btn-info">Edit</a>
-                                        <a href="#" class="btn btn-danger">Delete</a>
+                                        <a href="{{url('brand/edit/'.$item->id)}}" class="btn btn-info">Edit</a>
+                                        <a href="{{url('brand/delete/'.$item->id)}}" class="btn btn-danger" id="delete">Delete</a>
                                     </td>
                                 </tr>
+                                @endforeach
                             
                             </tbody>
                             </table>

@@ -19,8 +19,12 @@ class AdminController extends Controller
        $check = $request->all();
        if(Auth::guard('admin')->attempt(['email' => $check['email'], 'password' => $check['password'], 'status' => '1']))
        {  
-        //   $request->session()->regenerate(); 
-          return redirect()->route('admin.dashboard')->with('error', 'Admin Login Successfully.');
+        //   $request->session()->regenerate();
+          $notification = [
+             'message' => 'Admin Login Successfully.',
+             'alert-type' => 'success'
+          ];
+          return redirect()->route('admin.dashboard')->with($notification);
        }
        else{
           return redirect()->back()->with('error', 'Invalid credentials.');
@@ -28,8 +32,7 @@ class AdminController extends Controller
     }
     public function displayDashboard()
     {
-        $loggedinUser = Auth::guard('admin')->user();
-        return view('admin.dashboard.dashboard_content', compact('loggedinUser'));
+        return view('admin.dashboard.dashboard_content');
     }
 
     public function data()

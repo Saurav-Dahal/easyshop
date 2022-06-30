@@ -22,42 +22,45 @@ class BrandController extends Controller
     }
 
     public function storeBrands(Request $request)
-    {
+    {    
         $validatedData= $request->validate([
           'brand_name'=>'required|max:255|unique:brands',
-          'brand_image'=>'mimes:jpg,bmp,png',
+          'brand_image'=>'required|mimes:jpg,bmp,png',
         ],
         [
            'brand_name.required'=>'Please Input Brand Name',
-        ]
-        );
-
+           'brand_image.required'=>'Please Select Brand Image ',
+           'brand_image.mimes'=>'File Format Not Supported',
+        ]);
+        // dd($request);
         $brand_image= $request->file('brand_image');
 
         $name_generate=hexdec(uniqid());
         $image_ext=strtolower($brand_image->getClientOriginalExtension());
         $image_name= 'img-'.$name_generate.'.'.$image_ext;
-        // echo $image_name;
-        $image_location = 'image/brand/';
+        $image_location = 'backend/uploads/brand/';
         $final_image = $image_location.$image_name;
-        // echo $final_image;
         // $brand_image->move($image_location, $image_name);
-        Image::make($brand_image)->resize(300,200)->save($final_image);
-
-        // exit();
+        Image::make($brand_image)->resize(300,300)->save($final_image);
 
            $brand = new Brand;
            $brand->brand_name = $request->brand_name;
+           $brand->brand_slug = strtolower(str_replace(' ', '-', $request->brand_name));
            $brand->brand_image = $final_image;
            $brand->save();
 
-           return redirect()->back()->with('success', 'Brand added successfully.');
+           $notification = [
+               'message' => 'Brand added successfully.',
+               'alert-type' => 'success',
+           ];
+
+           return redirect()->back()->with($notification);
 
     }
 
     public function editBrands($id){
-        $brands = Brand::find($id);
-        return view('editbrand', compact('brands'));
+        $brands = Brand::findorFail($id);
+        return view('backend.brand.edit_brands', compact('brands'));
     }
 
     public function updateBrands(Request $request, $id)
@@ -68,6 +71,7 @@ class BrandController extends Controller
           ],
           [
              'brand_name.required'=>'Please Input Brand Name',
+             'brand_image.mimes'=>'File Format Not Supported',
         ]);
         
         $old_image = $request->old_image;
@@ -78,36 +82,54 @@ class BrandController extends Controller
         $name_generate = hexdec(uniqid());
         $image_ext = strtolower($brand_image->getClientOriginalExtension());
         $image_name = 'img-'.$name_generate.'.'.$image_ext;
-        $image_location = 'image/brand/';
+        $image_location = 'backend/uploads/brand/';
         $final_image = $image_location.$image_name;
-        $brand_image->move($image_location, $image_name);
+        Image::make($brand_image)->resize(300,300)->save($final_image);
 
         unlink($old_image);
 
-        $brand = Brand::find($id);
+        $brand = Brand::findorFail($id);
         $brand->brand_name = $request->brand_name;
+        $brand->brand_slug = strtolower(str_replace(' ', '-', $request->brand_name));
         $brand->brand_image = $final_image;
         $brand->save();
 
-        return redirect()->back()->with('success', 'Brand updated successfully.');
+        $notification = [
+            'message' => 'Brand updated successfully.',
+            'alert-type' => 'info',
+        ];
+
+        return redirect()->route('all.brands')->with($notification);
+
         }
         else{
-            $brand = Brand::find($id);
+            $brand = Brand::findorFail($id);
             $brand->brand_name = $request->brand_name;
+            $brand->brand_slug = strtolower(str_replace(' ', '-', $request->brand_name));
             $brand->save();
+
+            $notification = [
+                'message' => 'Brand updated successfully.',
+                'alert-type' => 'info',
+            ];
     
-            return redirect()->back()->with('success', 'Brand updated successfully.');
+            return redirect()->route('all.brands')->with($notification);
         }
 
     }
 
     public function deleteBrands($id)
     {
-        $brand = Brand::find($id);
+        $brand = Brand::findorFail($id);
         $image = $brand->brand_image;
         unlink($image);
         $brand->delete();
 
-        return redirect()->back()->with('success', 'Brand deleted successfully.');
+        $notification = [
+            'message' => 'Brand deleted successfully.',
+            'alert-type' => 'success',
+        ];
+
+        return redirect()->back()->with($notification);
     }
 }
