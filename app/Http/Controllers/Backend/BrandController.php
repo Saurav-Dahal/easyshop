@@ -28,9 +28,9 @@ class BrandController extends Controller
           'brand_image'=>'required|mimes:jpg,bmp,png',
         ],
         [
-           'brand_name.required'=>'Please Input Brand Name',
-           'brand_image.required'=>'Please Select Brand Image ',
-           'brand_image.mimes'=>'File Format Not Supported',
+           'brand_name.required'=>'Please input Brand Name',
+           'brand_image.required'=>'Please select Brand Image ',
+           'brand_image.mimes'=>'File format not supported',
         ]);
         // dd($request);
         $brand_image= $request->file('brand_image');
@@ -70,8 +70,8 @@ class BrandController extends Controller
             'brand_image'=>'mimes:jpg,bmp,png',
           ],
           [
-             'brand_name.required'=>'Please Input Brand Name',
-             'brand_image.mimes'=>'File Format Not Supported',
+             'brand_name.required'=>'Please input Brand Name',
+             'brand_image.mimes'=>'File format not supported',
         ]);
         
         $old_image = $request->old_image;

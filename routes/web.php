@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Backend\BrandController;
+use App\Http\Controllers\Backend\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,6 +53,16 @@ Route::middleware('admin')->group(function(){
         Route::get('/edit/{id}', [BrandController::class, 'editBrands']);
         Route::post('/update/{id}', [BrandController::class, 'updateBrands']);
         Route::get('/delete/{id}', [BrandController::class, 'deleteBrands']);
+    
+    });
+
+    Route::prefix('category')->group(function(){
+        Route::get('/all', [CategoryController::class, 'allCategories'])->name('all.categories');
+        Route::get('/add', [CategoryController::class, 'addCategories'])->name('add.categories');
+        Route::post('/store', [CategoryController::class, 'storeCategories'])->name('store.categories');
+        Route::get('/edit/{id}', [CategoryController::class, 'editCategories']);
+        Route::post('/update/{id}', [CategoryController::class, 'updateCategories']);
+        Route::get('/delete/{id}', [CategoryController::class, 'deleteCategories']);
     
     });
     

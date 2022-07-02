@@ -9,7 +9,7 @@
             <div class="col-12">
                 <div class="box">
                     <div class="box-header with-border">
-                        <h3 class="box-title">All Brands</h3>
+                        <h3 class="box-title">All Categories</h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -18,22 +18,22 @@
                             <thead>
                                 <tr>
                                     <th>SNo.</th>
-                                    <th>Brand Name</th>
-                                    <th>Brand Image</th>
+                                    <th>Category Name</th>
+                                    <th>Category Icon</th>
                                     <th>Created At</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($brands as $item)
+                                @foreach($categories as $item)
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
-                                    <td>{{$item->brand_name}}</td>
-                                    <td><img src="{{url($item->brand_image)}}" alt="brand_image" style="width: 70px; height: 40px;"></td>
+                                    <td>{{$item->category_name}}</td>
+                                    <td><i class="{{$item->category_icon}}"></i></td>
                                     <td>{{$item->created_at}}</td>
                                     <td>
-                                        <a href="{{url('brand/edit/'.$item->id)}}" class="btn btn-info"><i class="fa fa-pencil"></i></a>
-                                        <a href="{{url('brand/delete/'.$item->id)}}" class="btn btn-danger" id="delete"><i class="fa fa-trash"></i></a>
+                                        <a href="{{url('category/edit/'.$item->id)}}" class="btn btn-info"><i class="fa fa-pencil"></i></a>
+                                        <a href="{{url('category/delete/'.$item->id)}}" class="btn btn-danger" id="delete"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach
