@@ -6,7 +6,7 @@ use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
-
+use App\Http\Controllers\Backend\SubCategoryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -63,6 +63,16 @@ Route::middleware('admin')->group(function(){
         Route::get('/edit/{id}', [CategoryController::class, 'editCategories']);
         Route::post('/update/{id}', [CategoryController::class, 'updateCategories']);
         Route::get('/delete/{id}', [CategoryController::class, 'deleteCategories']);
+    
+    });
+
+    Route::prefix('subcategory')->group(function(){
+        Route::get('/all', [SubCategoryController::class, 'allSubCategories'])->name('all.subcategories');
+        Route::get('/add', [SubCategoryController::class, 'addSubCategories'])->name('add.subcategories');
+        Route::post('/store', [SubCategoryController::class, 'storeSubCategories'])->name('store.subcategories');
+        Route::get('/edit/{id}', [SubCategoryController::class, 'editSubCategories']);
+        Route::post('/update/{id}', [SubCategoryController::class, 'updateSubCategories']);
+        Route::get('/delete/{id}', [SubCategoryController::class, 'deleteSubCategories']);
     
     });
     

@@ -72,7 +72,7 @@ class CategoryController extends Controller
   
              $notification = [
                  'message' => 'Category updated successfully.',
-                 'alert-type' => 'success',
+                 'alert-type' => 'info',
              ];
 
         return redirect()->route('all.categories')->with($notification);
