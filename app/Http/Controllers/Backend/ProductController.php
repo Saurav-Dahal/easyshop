@@ -6,23 +6,27 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\SubCategory;
+use App\Models\SubSubCategory;
+use App\Models\Product;
+use App\Models\Brand;
 
-class SubCategoryController extends Controller
+
+class ProductController extends Controller
 {
-    public function allSubCategories()
+    public function allProducts()
     {   
         $subcategories = SubCategory::latest()->get();
 
         return view('backend.subcategory.all_subcategories', compact('subcategories'));
     }
 
-    public function addSubCategories()
+    public function addProducts()
     {
         $categories = Category::orderBy('category_name', 'ASC')->get();
         return view('backend.subcategory.add_subcategories', compact('categories'));
     }
 
-    public function storeSubCategories(Request $request)
+    public function storeProducts(Request $request)
     {    
         $validatedData= $request->validate([
           'category_id'=>'required',
@@ -49,14 +53,14 @@ class SubCategoryController extends Controller
 
     }
 
-    public function editSubCategories($id)
+    public function editProducts($id)
     {
         $categories = Category::orderBy('category_name', 'ASC')->get();
         $subcategories = SubCategory::findorFail($id);
         return view('backend.subcategory.edit_subcategories', compact('subcategories', 'categories'));
     }
 
-    public function updateSubCategories(Request $request, $id)
+    public function updateProducts(Request $request, $id)
     { 
         $validatedData= $request->validate([
         'category_id'=>'required',
@@ -82,7 +86,7 @@ class SubCategoryController extends Controller
         return redirect()->route('all.subcategories')->with($notification);
     }
 
-    public function deleteSubCategories($id)
+    public function deleteProducts($id)
     {
         $subcategory = Subcategory::findorFail($id);
         $subcategory->delete();
@@ -94,4 +98,5 @@ class SubCategoryController extends Controller
 
         return redirect()->back()->with($notification);
     }
+}
 }
