@@ -96,6 +96,9 @@ Route::middleware('admin')->group(function(){
     // ============================= Get All Sub Category As Per Selected Category Route ==================================== //
     Route::get('/category/subcategory/ajax/{category_id}', [SubSubCategoryController::class, 'getAllSubCategories']);
 
+    // ============================= Get All Sub SubCategory As Per Selected SubCategory Route ==================================== //
+    Route::get('/category/subcategory/subsubcategory/ajax/{subcategory_id}', [SubSubCategoryController::class, 'getAllSubSubCategories']);
+
     // ============================= Sub SubCategory Route ==================================== //
     Route::prefix('product')->group(function(){
         Route::get('/all', [ProductController::class, 'allProducts'])->name('all.products');

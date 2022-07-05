@@ -21,7 +21,7 @@ class AdminController extends Controller
        {  
         //   $request->session()->regenerate();
           $notification = [
-             'message' => 'Admin Login Successfully.',
+             'message' => 'Admin Login Successfull.',
              'alert-type' => 'success'
           ];
           return redirect()->route('admin.dashboard')->with($notification);

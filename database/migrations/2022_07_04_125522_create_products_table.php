@@ -31,10 +31,10 @@ class CreateProductsTable extends Migration
             $table->string('short_description');
             $table->text('long_description');
             $table->string('product_thumbnail');
-            $table->integer('hot_deals')->nullable();
-            $table->integer('featured')->nullable();
-            $table->integer('speacial_offer')->nullable();
-            $table->integer('speacial_deals')->nullable();
+            $table->integer('hot_deals')->default(0);
+            $table->integer('featured')->default(0);
+            $table->integer('speacial_offer')->default(0);
+            $table->integer('speacial_deals')->default(0);
             $table->integer('status')->default(0);
             $table->timestamps();
         });

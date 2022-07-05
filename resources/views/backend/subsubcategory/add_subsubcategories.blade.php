@@ -107,7 +107,7 @@
                     },
                 });
             }else{
-                alert('danger');
+                alert('Please select subcategory.');
             }
         });
     });
