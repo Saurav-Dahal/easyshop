@@ -15,7 +15,7 @@ class CreateMultiImagesTable extends Migration
     {
         Schema::create('multi_images', function (Blueprint $table) {
             $table->id();
-            $table->integer('product_id');
+            $table->foreignId('product_id')->constraint('products')->onDelete('cascade');
             $table->string('photo_name');
             $table->timestamps();
         });

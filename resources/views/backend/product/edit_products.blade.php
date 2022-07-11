@@ -197,14 +197,15 @@
                                             <div class="row">	
                                                 <div class="col-md-4">
                                                     <div class="form-group">
+                                                    <input type="hidden" name="old_image" value="{{$products->product_thumbnail}}">
                                                         <h5>Product Thumbnail <span class="text-danger">*</span></h5>
                                                         <div class="controls">
-                                                            <input type="file" name="product_thumbnail" id="product_thumbnail" class="form-control" onChange="mainThumbUrl(this)" > <div class="help-block"></div>
+                                                            <input type="file" name="product_thumbnail" id="product_thumbnail" class="form-control" onChange="mainThumbUrl(this)" value="{{$products->product_thumbnail}}"> <div class="help-block"></div>
                                                             @error('product_thumbnail')
                                                                 <span class="text-danger">{{ $message }}</span>
                                                             @enderror
                                                             </br>
-                                                            <img src="" id="mainThumb">
+                                                            <img src="{{url($products->product_thumbnail)}}" id="mainThumb" style="height: 100px; width: 100px;">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -212,12 +213,22 @@
                                                     <div class="form-group">
                                                         <h5>Multiple Image <span class="text-danger">*</span></h5>
                                                         <div class="controls">
+
                                                             <input type="file" name="multi_img[]" id="multi_img" class="form-control" multiple> <div class="help-block"></div>
                                                             @error('multi_img')
                                                                 <span class="text-danger">{{ $message }}</span>
                                                             @enderror
                                                             </br>
                                                             <div class="row" id="preview_img"></div> <!--For showing multiple image -->
+                                                            <div class="row">
+                                                                @foreach ($products->images as $image)
+                                                                <div class="col-3">
+                                                                    <img src= "{{url($image->photo_name)}}" class="row" id="preview_img" style="height: 100px; width: 100px; padding:3px;"> 
+                                                                    <a href="{{url('product/multimage/delete/'.$image->id)}}" style="margin-left:25px; color: #ffff;">X</a>
+                                                                </div>
+                                                                    @endforeach
+                                                            </div>
+                                                            
                                                         </div>
                                                     </div>
                                                 </div>
@@ -374,7 +385,7 @@
         if (input.files && input.files[0]) {
             var reader = new FileReader();
             reader.onload = function(e) {
-                $('#mainThumb').attr('src',e.target.result).width(80).height(80);
+                $('#mainThumb').attr('src',e.target.result).width(100).height(100);
             };
             reader.readAsDataURL(input.files[0]);
         }
@@ -397,8 +408,8 @@
                   var fRead = new FileReader(); //new filereader
                   fRead.onload = (function(file){ //trigger function on successful read
                   return function(e) {
-                      var img = $('<img/>').addClass('thumb').attr('src', e.target.result) .width(80)
-                  .height(80); //create image element 
+                      var img = $('<img/>').addClass('thumb').attr('src', e.target.result) .width(100)
+                  .height(100); //create image element 
                       $('#preview_img').append(img); //append image to output element
                   };
                   })(file);

@@ -107,6 +107,7 @@ Route::middleware('admin')->group(function(){
         Route::get('/edit/{id}', [ProductController::class, 'editProducts']);
         Route::post('/update/{id}', [ProductController::class, 'updateProducts']);
         Route::get('/delete/{id}', [ProductController::class, 'deleteProducts']);
+        Route::get('/multimage/delete/{id}', [ProductController::class, 'deleteMultiImage']);
     
     });
 });

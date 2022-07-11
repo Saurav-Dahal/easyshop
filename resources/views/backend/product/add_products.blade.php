@@ -407,6 +407,10 @@
   });
    
 </script>
+
+<script>
+    
+</script>
 <!-- -------------For Showing Multi Image As Per Selection Ends ----------------- -->
 
 @endsection
