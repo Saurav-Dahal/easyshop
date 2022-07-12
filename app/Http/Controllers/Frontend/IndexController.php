@@ -6,12 +6,15 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
 use App\Models\User;
+use App\Models\Category;
 
 class IndexController extends Controller
 {
     public function index()
     {
-        return view('frontend.index');
+        $categories = Category::with('subsubcategory')->first();
+        dd($categories->toArray());
+        return view('frontend.index', compact('categories'));
     }
 
     public function updateUser(Request $request)

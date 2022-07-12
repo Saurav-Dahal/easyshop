@@ -29,11 +29,11 @@
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{$item->category_name}}</td>
-                                    <td><i class="{{$item->category_icon}}"></i></td>
+                                    <td><img src="{{url($item->category_icon)}}" style="width: 70px; height: 40px;"></td>
                                     <td>{{$item->created_at}}</td>
                                     <td>
                                         <a href="{{url('category/edit/'.$item->id)}}" class="btn btn-info"><i class="fa fa-pencil"></i></a>
-                                        <a href="{{url('category/delete/'.$item->id)}}" class="btn btn-danger" id="delete"><i class="fa fa-trash"></i></a>
+                                        <a href="{{url('category/delete/'.$item->id)}}" class="btn btn-danger" id="delete" onClick="return confirm('Are you sure you want to delete it?')"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach

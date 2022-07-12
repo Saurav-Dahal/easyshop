@@ -35,7 +35,7 @@
                                     <td>{{$item->created_at}}</td>
                                     <td>
                                         <a href="{{url('subsubcategory/edit/'.$item->id)}}" class="btn btn-info"><i class="fa fa-pencil"></i></a>
-                                        <a href="{{url('subsubcategory/delete/'.$item->id)}}" class="btn btn-danger" id="delete"><i class="fa fa-trash"></i></a>
+                                        <a href="{{url('subsubcategory/delete/'.$item->id)}}" class="btn btn-danger" id="delete" onClick="return confirm('Are you sure you want to delete it?')"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach

@@ -37,7 +37,7 @@
                                                     <div class="form-group">
                                                         <h5>Category Image <span class="text-danger">*</span></h5>
                                                         <div class="controls">
-                                                            <input type="text" name="category_icon" id="category_icon" class="form-control" > <div class="help-block"></div>
+                                                            <input type="file" name="category_icon" id="category_icon" class="form-control" > <div class="help-block"></div>
                                                             @error('category_icon')
                                                                 <span class="text-danger">{{ $message }}</span>
                                                             @enderror
@@ -46,7 +46,7 @@
                                                 </div>				
                                             </div>
                                             <div class="text-xs-right">
-                                                <input type="submit" class="btn btn-rounded btn-primary" value="Add">
+                                                <input type="submit" class="btn btn-rounded btn-primary" value="Add Category">
                                             </div>
                                         </div>
                                     </div>

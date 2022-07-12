@@ -22,6 +22,7 @@
                                             <div class="row">	
                                                 <div class="col-md-6">
                                                     <div class="form-group">
+                                                    <input type="hidden" name="old_image" value="{{$categories->category_icon}}">
                                                         <h5>Category Name <span class="text-danger">*</span></h5>
                                                         <div class="controls">
                                                             <input type="text" name="category_name" id="category_name" class="form-control"  data-validation-required-message="This field is required" value="{{$categories->category_name}}"> <div class="help-block"></div>
@@ -37,16 +38,22 @@
                                                     <div class="form-group">
                                                         <h5>Category Icon <span class="text-danger">*</span></h5>
                                                         <div class="controls">
-                                                            <input type="text" name="category_icon" id="category_icon" class="form-control" value="{{$categories->category_icon}}"> <div class="help-block"></div>
+                                                            <input type="file" name="category_icon" id="category_icon" class="form-control" value="{{$categories->category_icon}}"> <div class="help-block"></div>
                                                             @error('category_icon')
                                                                 <span class="text-danger">{{ $message }}</span>
                                                             @enderror
                                                         </div>
                                                     </div>
-                                                </div>				
+                                                </div>	
+                                                <div class="col-md-6">
+                                                    </br>
+                                                    <div class="form-group">
+                                                        <img src="{{asset($categories->category_icon)}}" style="width: 100px; height: 50px;">
+                                                    </div>
+                                                </div>							
                                             </div>
                                             <div class="text-xs-right">
-                                                <input type="submit" class="btn btn-rounded btn-primary" value="Update">
+                                                <input type="submit" class="btn btn-rounded btn-primary" value="Update Category">
                                             </div>
                                         </div>
                                     </div>

@@ -36,25 +36,33 @@ class BrandController extends Controller
         // dd($request);
         $brand_image= $request->file('brand_image');
 
-        $name_generate=hexdec(uniqid());
-        $image_ext=strtolower($brand_image->getClientOriginalExtension());
-        $image_name= 'img-'.$name_generate.'.'.$image_ext;
-        $image_location = 'backend/uploads/brand/';
-        $final_image = $image_location.$image_name;
-        // $brand_image->move($image_location, $image_name);
-        Image::make($brand_image)->resize(300,300)->save($final_image);
+        if($brand_image)
+        {
+            $name_generate=hexdec(uniqid());
+            $image_ext=strtolower($brand_image->getClientOriginalExtension());
+            $image_name= 'img-'.$name_generate.'.'.$image_ext;
+            $image_location = 'backend/uploads/brand/';
+            $final_image = $image_location.$image_name;
+            // $brand_image->move($image_location, $image_name);
 
-           $brand = new Brand;
-           $brand->brand_name = $request->brand_name;
-           $brand->brand_slug = strtolower(str_replace(' ', '-', $request->brand_name));
-           $brand->brand_image = $final_image;
-           $brand->save();
+            if(!is_dir($image_location)) {
 
-           $notification = [
-               'message' => 'Brand added successfully.',
-               'alert-type' => 'success',
-           ];
+                mkdir($image_location, 0755, true);
+            }
 
+            Image::make($brand_image)->resize(300,300)->save($final_image);
+    
+            $brand = new Brand;
+            $brand->brand_name = $request->brand_name;
+            $brand->brand_slug = strtolower(str_replace(' ', '-', $request->brand_name));
+            $brand->brand_image = $final_image;
+            $brand->save();
+
+            $notification = [
+                'message' => 'Brand added successfully.',
+                'alert-type' => 'success',
+            ];
+        }
            return redirect()->back()->with($notification);
 
     }
@@ -87,6 +95,12 @@ class BrandController extends Controller
             $image_name = 'img-'.$name_generate.'.'.$image_ext;
             $image_location = 'backend/uploads/brand/';
             $final_image = $image_location.$image_name;
+
+            if(!is_dir($image_location)) {
+
+                mkdir($image_location, 0755, true);
+            }
+
             Image::make($brand_image)->resize(300,300)->save($final_image);
 
             if(File::exists($old_image))
@@ -114,7 +128,12 @@ class BrandController extends Controller
     {
         $brand = Brand::findorFail($id);
         $image = $brand->brand_image;
-        unlink($image);
+        
+        if(File::exists($image))
+            {
+                unlink($image);
+            }
+
         $brand->delete();
 
         $notification = [

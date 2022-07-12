@@ -44,9 +44,9 @@
                                         @if($item->status == 1)
                                         <span class="badge badge-primary" style="font-size: 14px;">Active</span>
                                         @else
-                                        <span class="badge badge-dark" style="font-size: 14px;">Inactive</span>
+                                        <span class="badge badge-danger" style="font-size: 14px;">Inactive</span>
                                         @endif
-                                    <td>
+                                    </td>
                                         <a href="{{url('product/edit/'.$item->id)}}" class="btn btn-info"><i class="fa fa-pencil"></i></a>
                                         <a href="{{url('product/delete/'.$item->id)}}" class="btn btn-danger" id="delete" onClick="return confirm('Are you sure you want to delete it?')"><i class="fa fa-trash"></i></a>
                                     </td>

@@ -60,9 +60,9 @@ class ProductController extends Controller
 
         ]);
             //----------------For Product Image----------------//
-            if($request->hasFile('product_thumbnail'))
-            {
-                $product_thumbnail = $request->file('product_thumbnail');
+        if($request->hasFile('product_thumbnail'))
+        {
+            $product_thumbnail = $request->file('product_thumbnail');
 
             $name_generate = hexdec(uniqid());
             $image_ext = strtolower($product_thumbnail->getClientOriginalExtension());
@@ -101,7 +101,7 @@ class ProductController extends Controller
             $product->product_thumbnail = $final_image;
             $product->created_at = Carbon::now();
             $product->save();
-            }
+        }
             
 
             //-------------------Product Image Ends ------------------//
@@ -110,7 +110,8 @@ class ProductController extends Controller
             if($request->hasFile('multi_img'))
             {
                 $image = $request->file('multi_img');
-                foreach($image as $images){
+                foreach($image as $images)
+                {
                     $name_gen = hexdec(uniqid());
                     $multi_image_ext = strtolower($images->getClientOriginalExtension());
                     $multi_image_name= 'img-'.$name_gen.'.'.$multi_image_ext;

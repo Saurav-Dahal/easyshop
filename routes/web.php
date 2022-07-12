@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\SubSubCategoryController;
 use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\Backend\SliderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -99,7 +100,7 @@ Route::middleware('admin')->group(function(){
     // ============================= Get All Sub SubCategory As Per Selected SubCategory Route ==================================== //
     Route::get('/category/subcategory/subsubcategory/ajax/{subcategory_id}', [SubSubCategoryController::class, 'getAllSubSubCategories']);
 
-    // ============================= Sub SubCategory Route ==================================== //
+    // ================================ Product Route ==================================== //
     Route::prefix('product')->group(function(){
         Route::get('/all', [ProductController::class, 'allProducts'])->name('all.products');
         Route::get('/add', [ProductController::class, 'addProducts'])->name('add.products');
@@ -108,6 +109,17 @@ Route::middleware('admin')->group(function(){
         Route::post('/update/{id}', [ProductController::class, 'updateProducts']);
         Route::get('/delete/{id}', [ProductController::class, 'deleteProducts']);
         Route::get('/multimage/delete/{id}', [ProductController::class, 'deleteMultiImage']);
+    
+    });
+
+    // ================================ Slider Route ==================================== //
+    Route::prefix('slider')->group(function(){
+        Route::get('/all', [SliderController::class, 'allSliders'])->name('all.sliders');
+        Route::get('/add', [SliderController::class, 'addSliders'])->name('add.sliders');
+        Route::post('/store', [SliderController::class, 'storeSliders'])->name('store.sliders');
+        Route::get('/edit/{id}', [SliderController::class, 'editSliders']);
+        Route::post('/update/{id}', [SliderController::class, 'updateSliders']);
+        Route::get('/delete/{id}', [SliderController::class, 'deleteSliders']);
     
     });
 });
