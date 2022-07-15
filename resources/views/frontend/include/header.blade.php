@@ -147,7 +147,7 @@
                         <div class="yamm-content ">
                           <div class="row">
                             <div class="col-xs-12 col-sm-6 col-md-2 col-menu">
-                              <h2 class="title">Men</h2>
+                              <h2 class="title">{{$category->subcategory->id}}</h2>
                               <ul class="links">
                                 <li><a href="#">Dresses</a></li>
                                 <li><a href="#">Shoes </a></li>

@@ -37,7 +37,8 @@ class SubCategoryController extends Controller
            $subcategory = new SubCategory;
            $subcategory->category_id = $request->category_id;
            $subcategory->subcategory_name = $request->subcategory_name;
-           $subcategory->subcategory_slug = strtolower(str_replace(' ', '-', $request->subcategory_slug));
+           $subcategory->subcategory_slug = strtolower(str_replace(' ', '-', $request->subcategory_name));
+
            $subcategory->save();
 
            $notification = [

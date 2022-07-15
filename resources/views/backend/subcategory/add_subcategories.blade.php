@@ -51,7 +51,7 @@
                                                 </div>				
                                             </div>
                                             <div class="text-xs-right">
-                                                <input type="submit" class="btn btn-rounded btn-primary" value="Add">
+                                                <input type="submit" class="btn btn-rounded btn-primary" value="Add SubCategory">
                                             </div>
                                         </div>
                                     </div>

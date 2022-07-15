@@ -29,7 +29,7 @@
                                                             <select name="category_id" id="category_id" class="form-control">
                                                                 <option value="" selected disabled>Select Category</option>
                                                                 @foreach($categories as $item)
-                                                                <option value="{{$item->id}}" {{$item->id == $subsubcategories->category_id ? 'selected' : ''}} >{{$item->category_name}}</option>
+                                                                <option value="{{$item->id}}" {{$item->id == $subsubcategories->subcategory->category_id ? 'selected' : ''}} >{{$item->category_name}}</option>
                                                                 @endforeach
                                                             </select>
                                                             @error('category_id')
@@ -44,13 +44,13 @@
                                                     <div class="form-group">
                                                         <h5>Sub Category <span class="text-danger">*</span></h5>
                                                         <div class="controls">
-                                                            <select name="subcategory_id" id="subcategory_id" class="form-control">
+                                                            <select name="sub_category_id" id="sub_category_id" class="form-control">
                                                                 <option value="" selected disabled>Select SubCategory</option>
                                                                 @foreach($subcategories as $subitem)
-                                                                <option value="{{$subitem->id}}" {{$subitem->id == $subsubcategories->subcategory_id ? 'selected' : ''}} >{{$subitem->subcategory_name}}</option>
+                                                                <option value="{{$subitem->id}}" {{$subitem->id == $subsubcategories->sub_category_id ? 'selected' : ''}} >{{$subitem->subcategory_name}}</option>
                                                                 @endforeach
                                                             </select>
-                                                            @error('subcategory_id')
+                                                            @error('sub_category_id')
                                                                 <span class="text-danger">{{ $message }}</span>
                                                             @enderror
                                                         </div>
@@ -71,7 +71,7 @@
                                                 </div>				
                                             </div>
                                             <div class="text-xs-right">
-                                                <input type="submit" class="btn btn-rounded btn-primary" value="Update">
+                                                <input type="submit" class="btn btn-rounded btn-primary" value="Update SubSubCategory">
                                             </div>
                                         </div>
                                     </div>
@@ -102,9 +102,9 @@
                     type: "GET",
                     dataType: "json",
                     success: function(data){
-                        var d = $('select[name="subcategory_id"]').empty();
+                        var d = $('select[name="sub_category_id"]').empty();
                         $.each(data, function(key, value){
-                            $('select[name="subcategory_id"]').append('<option value="'+ value.id + '">'+ value.subcategory_name + '</option>');
+                            $('select[name="sub_category_id"]').append('<option value="'+ value.id + '">'+ value.subcategory_name + '</option>');
                         });
                        
                     },

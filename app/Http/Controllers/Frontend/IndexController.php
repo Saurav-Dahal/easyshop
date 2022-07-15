@@ -12,8 +12,8 @@ class IndexController extends Controller
 {
     public function index()
     {
-        $categories = Category::with('subsubcategory')->first();
-        dd($categories->toArray());
+        $categories = Category::with('subcategory')->orderBy('category_name', 'ASC')->get();
+        // dd($categories);
         return view('frontend.index', compact('categories'));
     }
 

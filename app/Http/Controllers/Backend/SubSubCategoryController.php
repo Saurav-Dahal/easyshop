@@ -27,19 +27,18 @@ class SubSubCategoryController extends Controller
     {    
         $validatedData= $request->validate([
         'category_id'=>'required',
-        'subcategory_id'=>'required',
+        'sub_category_id'=>'required',
         'subsubcategory_name'=>'required',
         ],
         [
         'category_id.required'=>'Category must be selected.',
-        'subcategory_id.required'=>'SubCategory must be selected.',
+        'sub_category_id.required'=>'SubCategory must be selected.',
         'subsubcategory_name.required'=>'Please input subsubcategory.',
         ]);
         // dd($request);
 
         $subsubcategory = new SubSubCategory;
-        $subsubcategory->category_id = $request->category_id;
-        $subsubcategory->subcategory_id = $request->subcategory_id;
+        $subsubcategory->sub_category_id = $request->sub_category_id;
         $subsubcategory->subsubcategory_name = $request->subsubcategory_name;
         $subsubcategory->subsubcategory_slug = strtolower(str_replace(' ', '-', $request->subsubcategory_name));
         $subsubcategory->save();
@@ -65,19 +64,18 @@ class SubSubCategoryController extends Controller
     { 
         $validatedData= $request->validate([
         'category_id'=>'required',
-        'subcategory_id'=>'required',
+        'sub_category_id'=>'required',
         'subsubcategory_name'=>'required',
         ],
         [
             'category_id.required'=>'Category must be selected.',
-            'subcategory_id.required'=>'Category must be selected.',
+            'sub_category_id.required'=>'Category must be selected.',
             'subsubcategory_name.required'=>'Please input subsubcategory.',
         ]);
         // dd($request);
 
         $subsubcategory = SubSubCategory::findorFail($id);
-        $subsubcategory->category_id = $request->category_id;
-        $subsubcategory->subcategory_id = $request->subcategory_id;
+        $subsubcategory->sub_category_id = $request->sub_category_id;
         $subsubcategory->subsubcategory_name = $request->subsubcategory_name;
         $subsubcategory->subsubcategory_slug = strtolower(str_replace(' ', '-', $request->subsubcategory_name));
         $subsubcategory->save();
@@ -93,14 +91,17 @@ class SubSubCategoryController extends Controller
     public function deleteSubSubCategories($id)
     {
         $subsubcategory = SubSubcategory::findorFail($id);
-        $subsubcategory->delete();
 
-        $notification = [
-            'message' => 'SubSubcategory deleted successfully.',
-            'alert-type' => 'success',
-        ];
-
-        return redirect()->back()->with($notification);
+        if($subsubcategory)
+        {
+            $subsubcategory->delete();
+            $notification = [
+                'message' => 'SubSubcategory deleted successfully.',
+                'alert-type' => 'success',
+            ];
+    
+            return redirect()->back()->with($notification);
+        }
     }
 
     public function getAllSubCategories($category_id)
@@ -111,7 +112,7 @@ class SubSubCategoryController extends Controller
 
     public function getAllSubSubCategories($subcategory_id)
     {
-        $subsubcategory = SubSubCategory::where('subcategory_id', $subcategory_id)->orderBy('subsubcategory_name', 'ASC')->get();
+        $subsubcategory = SubSubCategory::where('sub_category_id', $subcategory_id)->orderBy('subsubcategory_name', 'ASC')->get();
         return json_encode($subsubcategory);
     }
 }

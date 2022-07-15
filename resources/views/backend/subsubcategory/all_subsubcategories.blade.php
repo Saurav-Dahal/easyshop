@@ -18,7 +18,6 @@
                             <thead>
                                 <tr>
                                     <th>SNo.</th>
-                                    <th>Category </th>
                                     <th>Sub Category </th>
                                     <th>Sub SubCategory</th>
                                     <th>Created At</th>
@@ -29,7 +28,6 @@
                                 @foreach($subsubcategories as $item)
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
-                                    <td>{{$item->category->category_name}}</td>
                                     <td>{{$item->subcategory->subcategory_name}}</td>
                                     <td>{{$item->subsubcategory_name}}</td>
                                     <td>{{$item->created_at}}</td>

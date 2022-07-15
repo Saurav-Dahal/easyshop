@@ -13,25 +13,16 @@ class SubSubCategory extends Model
 
     protected $fillable = [
         'category_id',
-        'subcategory_id',
+        'sub_category_id',
         'subsubcategory_name',
         'subsubcategory_slug'
     ];
 
-    public function category()
+
+    public function subcategory()
     {
-        return $this->belongsTo(Category::class, 'category_id', 'id');
+        return $this->belongsTo(Subcategory::class, 'sub_category_id', 'id');
     }
-
-    // public function subcategory()
-    // {
-    //     return $this->belongsTo(Subcategory::class, 'subcategory_id', 'id');
-    // }
-
-    // public function subcategory()
-    // {
-    //     return $this->belongsTo(Subcategory::class);
-    // }
 
     // public function category()
     // {

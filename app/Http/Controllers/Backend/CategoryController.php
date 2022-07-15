@@ -76,7 +76,7 @@ class CategoryController extends Controller
     { 
         $validatedData= $request->validate([
             'category_name'=>'required|max:255',
-            'category_icon'=>'required|mimes:jpg,bmp,png',
+            'category_icon'=>'mimes:jpg,bmp,png',
           ],
           [
              'category_name.required'=>'Please input Category Name',

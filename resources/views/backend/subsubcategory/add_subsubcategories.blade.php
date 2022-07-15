@@ -44,10 +44,10 @@
                                                     <div class="form-group">
                                                         <h5>Sub Category <span class="text-danger">*</span></h5>
                                                         <div class="controls">
-                                                            <select name="subcategory_id" id="subcategory_id" required="" class="form-control">
+                                                            <select name="sub_category_id" id="sub_category_id" required="" class="form-control">
                                                                 <option value="" selected disabled>Select SubCategory</option>
                                                             </select>
-                                                            @error('subcategory_id')
+                                                            @error('sub_category_id')
                                                                 <span class="text-danger">{{ $message }}</span>
                                                             @enderror
                                                         </div>
@@ -68,7 +68,7 @@
                                                 </div>				
                                             </div>
                                             <div class="text-xs-right">
-                                                <input type="submit" class="btn btn-rounded btn-primary" value="Add">
+                                                <input type="submit" class="btn btn-rounded btn-primary" value="Add SubSubCategory">
                                             </div>
                                         </div>
                                     </div>
@@ -99,9 +99,9 @@
                     type: "GET",
                     dataType: "json",
                     success: function(data){
-                        var d = $('select[name="subcategory_id"]').empty();
+                        var d = $('select[name="sub_category_id"]').empty();
                         $.each(data, function(key, value){
-                            $('select[name="subcategory_id"]').append('<option value="'+ value.id + '">'+ value.subcategory_name + '</option>');
+                            $('select[name="sub_category_id"]').append('<option value="'+ value.id + '">'+ value.subcategory_name + '</option>');
                         });
                        
                     },
