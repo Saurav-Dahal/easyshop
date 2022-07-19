@@ -22,24 +22,35 @@ use App\Http\Controllers\Backend\SliderController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+require __DIR__.'/auth.php';
 
 // ================================ Index Route ==================================== //
 
-Route::get('/', [IndexController::class, 'index']);
+Route::get('/', [IndexController::class, 'index'])->name('index');
 Route::post('/user/profile/update', [IndexController::class, 'updateUser'])->name('user.profile.update');
+Route::get('/product/details/{id}/{slug}', [IndexController::class, 'productDetailsPage']);
+Route::get('/product/tag/{tag}', [IndexController::class, 'tagWiseProducts']);
 
 // =============================== Index Route Ends ==================================== //
+
+// ============================= User Protected Route ==================================== //
 
 Route::get('/user/profile', function () {
     return view('user.user_profile');
 })->middleware(['auth'])->name('user.profile');
 
-require __DIR__.'/auth.php';
+// ============================= User Protected Route Ends ==================================== //
 
-// ============================= Admin Route ==================================== //
+
+
+// ============================= Admin Login/Register Route ==================================== //
+
+Route::get('admin/login', [AdminController::class, 'login'])->middleware('guest:admin')->name('admin.login');
+Route::post('admin/login', [AdminController::class, 'loginvalidate'])->middleware('guest:admin')->name('admin.loginvalidate');
+
+// ================================= Admin Login/Register Route Ends==================================== //
+
+// ============================= Admin Protected Route ==================================== //
 
 Route::middleware('admin')->group(function(){
     Route::get('admin/dashboard', [AdminController::class, 'displayDashboard'])->name('admin.dashboard');
@@ -124,22 +135,5 @@ Route::middleware('admin')->group(function(){
     });
 });
 
-    // ============================= Login/Register Route ==================================== //
-    Route::get('admin/login', [AdminController::class, 'login'])->middleware('guest:admin')->name('admin.login');
-    Route::post('admin/login', [AdminController::class, 'loginvalidate'])->middleware('guest:admin')->name('admin.loginvalidate');
-
-
-
-// ================================ Brand Route ==================================== //
-// Route::prefix('brand')->middleware('admin')->group(function(){
-//     Route::get('/all', [BrandController::class, 'allBrands'])->name('all.brands');
-//     Route::get('/add', [BrandController::class, 'addBrands'])->name('add.brands');
-//     Route::post('/store', [BrandController::class, 'storeBrands'])->name('store.brands');
-//     Route::get('/edit/{id}', [BrandController::class, 'editBrands']);
-//     Route::post('/update/{id}', [BrandController::class, 'updateBrands']);
-//     Route::get('/delete/{id}', [BrandController::class, 'deleteBrands']);
-
-// });
-
-// =============================== Brand Route Ends ==================================== //
+// ================================== Admin Protected Route Ends ==================================== //
 

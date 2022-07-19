@@ -21,23 +21,19 @@
                                     <th>Product Image </th>
                                     <th>Product Name</th>
                                     <th>Product Quantity</th>
-                                    <th>Product Size</th>
-                                    <th>Product Color</th>
                                     <th>Selling Price</th>
                                     <th>Discounted Price</th>
                                     <th>Status</th>
-                                    <th>Action</th>
+                                    <th style="width: 20%">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($products as $item)
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
-                                    <td><img src="{{url($item->product_thumbnail)}}"></td>
+                                    <td><img src="{{url($item->product_thumbnail)}}" style="width: 100px; height: 80px;"></td>
                                     <td>{{$item->product_name}}</td>
                                     <td>{{$item->product_qty}}</td>
-                                    <td>{{$item->product_size}}</td>
-                                    <td>{{$item->product_color}}</td>
                                     <td>{{$item->selling_price}}</td>
                                     <td>{{$item->discount_price}}</td>
                                     <td>
@@ -47,6 +43,7 @@
                                         <span class="badge badge-danger" style="font-size: 14px;">Inactive</span>
                                         @endif
                                     </td>
+                                    <td>
                                         <a href="{{url('product/edit/'.$item->id)}}" class="btn btn-info"><i class="fa fa-pencil"></i></a>
                                         <a href="{{url('product/delete/'.$item->id)}}" class="btn btn-danger" id="delete" onClick="return confirm('Are you sure you want to delete it?')"><i class="fa fa-trash"></i></a>
                                     </td>

@@ -17,12 +17,12 @@ class Category extends Model
         'category_icon',
     ];
 
-    public function subcategory()
+    public function subcategories()
     {
         return $this->hasMany(SubCategory::class);
     }
 
-    public function subsubcategory()
+    public function subsubcategories()
     {
         return $this->hasManyThrough(SubSubCategory::class, SubCategory::class);
     }
