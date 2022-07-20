@@ -65,7 +65,9 @@ class IndexController extends Controller
         $product = Product::findorFail($id);
         $productColor = explode(',', $product->product_color);
         $productSize = explode(',', $product->product_size);
-        return view('frontend.product.product_details', compact('product', 'categories', 'productColor', 'productSize'));
+        $relatedProducts = Product::where('category_id', $product->category_id)->where('id', '!=', $id)->orderBy('id', 'DESC')->limit(7)->get();
+        $hotDeals = Product::where('status', 1)->where('hot_deals', 1)->where('discount_price', '!=', NULL)->orderBy('id', 'DESC')->limit(3)->get();
+        return view('frontend.product.product_details', compact('product', 'categories', 'productColor', 'productSize', 'relatedProducts', 'hotDeals'));
     }
 
     public function tagWiseProducts($tag)
