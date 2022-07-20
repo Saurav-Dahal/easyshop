@@ -267,7 +267,7 @@
                                             <img class="img-responsive" alt="" src="{{url($product->product_thumbnail)}}" data-echo="{{url($product->product_thumbnail)}}" />
                                         </a>
                                     </div><!-- /.single-product-gallery-item -->
-                                    @foreach($productImage as $img)
+                                    @foreach($product->images as $img)
                                     <div class="single-product-gallery-item" id="slider{{$img->id}}">
                                         <a data-lightbox="image-1" data-title="Gallery" href="{{url($img->photo_name)}}">
                                             <img class="img-responsive" alt="" src="{{url($img->photo_name)}}" data-echo="{{url($img->photo_name)}}" />
@@ -284,7 +284,7 @@
                                                 <img class="img-responsive" width="85" alt="" src="{{url($product->product_thumbnail)}}" data-echo="{{url($product->product_thumbnail)}}" />
                                             </a>
                                         </div>
-                                        @foreach($productImage as $img)                                    
+                                        @foreach($product->images as $img)                                    
                                         <div class="item">
                                             <a class="horizontal-thumb active" data-target="#owl-single-product" data-slide="1" href="#slider{{$img->id}}">
                                                 <img class="img-responsive" width="85" alt="" src="{{url($img->photo_name)}}" data-echo="{{url($img->photo_name)}}" />
@@ -363,13 +363,41 @@
                                 </div><!-- /.price-container -->
 
                                 <div class="quantity-container info-container">
+                                    <div class="row">                                       
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="info-title control-label">Color <span>*</span></label>
+                                                <select class="form-control unicase-form-control selectpicker" style="display: none;">
+                                                    <option selected="" disabled="">--Choose Color--</option>
+                                                    @foreach($productColor as $color)
+                                                    <option value= "{{$color}}">{{$color}}</option>
+                                                    @endforeach
+                                                </select>
+						                    </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="info-title control-label">Size <span>*</span></label>
+                                                <select class="form-control unicase-form-control selectpicker" style="display: none;">
+                                                    <option selected="" disabled="">--Choose Size--</option>
+                                                    @foreach($productSize as $size)
+                                                    <option value= "{{$size}}">{{$size}}</option>
+                                                    @endforeach
+                                                </select>
+						                    </div>
+                                        </div>
+                                    </div><!-- /.row -->
+                                </div><!-- /.quantity-container -->	
+
+                                <div class="quantity-container info-container">
                                     <div class="row">
                                         
                                         <div class="col-sm-2">
                                             <span class="label">Qty :</span>
                                         </div>
                                         
-                                        <div class="col-sm-2">
+                                        <div class="col-sm-4">
                                             <div class="cart-quantity">
                                                 <div class="quant-input">
                                                     <div class="arrows">
@@ -381,12 +409,12 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-7">
+                                        <div class="col-sm-6">
                                             <a href="#" class="btn btn-primary"><i class="fa fa-shopping-cart inner-right-vs"></i> ADD TO CART</a>
                                         </div>
 
                                     </div><!-- /.row -->
-                                </div><!-- /.quantity-container -->							
+                                </div><!-- /.quantity-container -->													
                             </div><!-- /.product-info -->
                         </div><!-- /.col-sm-7 -->
                     </div><!-- /.row -->

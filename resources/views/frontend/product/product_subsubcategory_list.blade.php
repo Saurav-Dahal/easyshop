@@ -3,7 +3,7 @@
 @section('front_content')
 
 @section('title')
-Home | Tag Wise Product Details 
+Sub SubCategory Product | Easy Online Shop
 @endsection
 
 <div class="breadcrumb">

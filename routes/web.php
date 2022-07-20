@@ -30,6 +30,8 @@ Route::get('/', [IndexController::class, 'index'])->name('index');
 Route::post('/user/profile/update', [IndexController::class, 'updateUser'])->name('user.profile.update');
 Route::get('/product/details/{id}/{slug}', [IndexController::class, 'productDetailsPage']);
 Route::get('/product/tag/{tag}', [IndexController::class, 'tagWiseProducts']);
+Route::get('subcategory/product/{id}/{slug}', [IndexController::class, 'subcategoryWiseProducts']);
+Route::get('subsubcategory/product/{id}/{slug}', [IndexController::class, 'subsubcategoryWiseProducts']);
 
 // =============================== Index Route Ends ==================================== //
 

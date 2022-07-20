@@ -146,18 +146,20 @@
                     <ul class="dropdown-menu container">
                       <li>
                         <div class="yamm-content ">
-                        
-
                           <div class="row">
+
                           @foreach($category->subcategories as $subcategory)
                             <div class="col-xs-12 col-sm-6 col-md-2 col-menu">
-                            
-                              <h2 class="title">{{$subcategory->subcategory_name}}</h2>
+                              <a href="{{url('subcategory/product/'.$subcategory->id.'/'.$subcategory->subcategory_slug)}}">
+                                <h2 class="title">{{$subcategory->subcategory_name}}</h2>
+                              </a>
+
                               @foreach($subcategory->subsubcategories as $subsubcategory)
                               <ul class="links">
-                                <li><a href="#">{{$subsubcategory->subsubcategory_name}}</a></li>
+                                <li><a href="{{url('subsubcategory/product/'.$subsubcategory->id.'/'.$subsubcategory->subsubcategory_slug)}}">{{$subsubcategory->subsubcategory_name}}</a></li>
                               </ul> 
-                              @endforeach     
+                              @endforeach    
+
                             </div>
                             @endforeach
                             <!-- /.col -->        
