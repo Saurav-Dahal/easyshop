@@ -53,6 +53,7 @@
 <script src="{{asset('frontend/assets/js/bootstrap-select.min.js')}}"></script> 
 <script src="{{asset('frontend/assets/js/wow.min.js')}}"></script> 
 <script src="{{asset('frontend/assets/js/scripts.js')}}"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 	
@@ -79,5 +80,160 @@
             }
         @endif
     </script>
+
+    <script>
+        // <!-- Start Add To Cart Product -->
+        function addToCart() {
+            var product_name = $('#name').text();
+            var id = $('#product_id').val();
+            var color = $('#color option:selected').text();
+            var size = $('#size option:selected').text();
+            var quantity = $('#qty').val();
+                $.ajax({
+                    type: "POST",
+                    dataType: 'json',
+                    data:{
+                        _token: "{{ csrf_token() }}",
+                        color:color, size:size, quantity:quantity, product_name:product_name
+                    },
+                    url:"/cart/data/store/"+id,
+                    success:function(data){
+                        miniCart()
+                        const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timer: 3000
+                                })
+                            if($.isEmptyObject(data.error)){
+                                Toast.fire({
+                                    type: 'success',
+                                    icon: 'success',
+                                    title: data.success
+                                })
+                            }else{
+                                Toast.fire({
+                                    type: 'error',
+                                    icon: 'error',
+                                    title: data.error
+                                })
+                            }
+
+                    }
+                })
+        }
+        // <!-- END Add To Cart Product -->
+    </script>
+
+    <!-- <script type="text/javascript">
+        function getProductDataForMiniCart()
+        {
+            $.ajax({
+                type: "GET",
+                url:"/cart/product/data/",
+                dataType: 'json',
+                success:function(response){
+                    $('span[id="cartSubTotal"]').text(response.cartTotal);
+                    $('#cartQty').text(response.cartQty);
+                    var miniCart = " ";
+                    $.each(response.cartContent, function(key, value){
+                        miniCart += `<div class="cart-item product-summary">
+                                        <div class="row">
+                                            <div class="col-xs-4">
+                                                <div class="image"> 
+                                                    <a href="detail.html"><img src="/${value.options.image}" alt=""></a>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-7">
+                                                <h3 class="name"><a href="index.php?page-detail">${value.name}</a></h3>
+                                                <div class="price">${value.price}</div>
+                                            </div>
+                                            <div class="col-xs-1 action"> <a href="#"><i class="fa fa-trash"></i></a> </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="clearfix"></div>
+                                    <hr>`
+                    });
+
+                    $('#miniCart').html(miniCart); 
+                }
+            })    
+        }
+        // getProductDataForMiniCart()
+    </script> -->
+
+    <script type="text/javascript">
+     function miniCart(){
+        $.ajax({
+            type: 'GET',
+            url: '/cart/product/data/',
+            dataType:'json',
+            success:function(response){
+                $('span[id="cartSubTotal"]').text(response.cartTotal);
+                $('#cartQty').text(response.cartQty);
+                var miniCart = ""
+                $.each(response.carts, function(key,value){
+                    miniCart += `<div class="cart-item product-summary">
+          <div class="row">
+            <div class="col-xs-4">
+              <div class="image"> <a href="detail.html"><img src="/${value.options.image}" alt=""></a> </div>
+            </div>
+            <div class="col-xs-7">
+              <h3 class="name"><a href="index.php?page-detail">${value.name}</a></h3>
+              <div class="price"> ${value.price} * ${value.qty} </div>
+            </div>
+            <div class="col-xs-1 action"> 
+            <button type="submit" id="${value.rowId}" onclick="miniCartRemove(this.id)"><i class="fa fa-trash"></i></button> </div>
+          </div>
+        </div>
+        <!-- /.cart-item -->
+        <div class="clearfix"></div>
+        <hr>`
+        });
+                
+                $('#miniCart').html(miniCart);
+            }
+        })
+     }
+    miniCart();
+</script>
+
+<script>
+     function addToWishlist(product_id){
+        $.ajax({
+            type: 'POST',
+            url: '/wishlist/product/store/'+product_id,
+            dataType:'json',
+            data:{
+                _token: "{{ csrf_token() }}",     
+                },
+        success:function(data){
+                
+                const Toast = Swal.mixin({
+                      toast: true,
+                      position: 'top-end',
+                      
+                      showConfirmButton: false,
+                      timer: 3000
+                    })
+                if ($.isEmptyObject(data.error)) {
+                    Toast.fire({
+                        type: 'success',
+                        icon: 'success',
+                        title: data.success
+                    })
+                }else{
+                    Toast.fire({
+                        type: 'error',
+                        icon: 'error',
+                        title: data.error
+                    })
+                }
+            }
+        })
+     }
+</script>
+
 </body>
 </html>

@@ -3,13 +3,15 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminProfileController;
-use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\SubSubCategoryController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SliderController;
+use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\Frontend\IndexController;
+use App\Http\Controllers\User\WishlistController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +29,6 @@ require __DIR__.'/auth.php';
 // ================================ Index Route ==================================== //
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
-Route::post('/user/profile/update', [IndexController::class, 'updateUser'])->name('user.profile.update');
 Route::get('/product/details/{id}/{slug}', [IndexController::class, 'productDetailsPage']);
 Route::get('/product/tag/{tag}', [IndexController::class, 'tagWiseProducts']);
 Route::get('subcategory/product/{id}/{slug}', [IndexController::class, 'subcategoryWiseProducts']);
@@ -40,10 +41,24 @@ Route::get('subsubcategory/product/{id}/{slug}', [IndexController::class, 'subsu
 Route::get('/user/profile', function () {
     return view('user.user_profile');
 })->middleware(['auth'])->name('user.profile');
+Route::post('/user/profile/update', [IndexController::class, 'updateUser'])->name('user.profile.update');
 
 // ============================= User Protected Route Ends ==================================== //
 
+// ================================ Shopping Cart Route ==================================== //
 
+Route::post('/cart/data/store/{id}', [CartController::class, 'addToCart']);
+Route::get('/cart/product/data/', [CartController::class, 'getProductDataForMiniCart']);
+Route::post('/wishlist/data/store/{product_id}', [WishlistController::class, 'addToWishlist']);
+
+// =============================== Shopping Cart Route Ends ==================================== //
+
+// ================================ Wishlist Route ==================================== //
+
+Route::post('/wishlist/product/store/{product_id}', [WishlistController::class, 'addToWishlist']);
+Route::get('/wishlist/product/show', [WishlistController::class, 'showWishlistProduct'])->name('show.wishlistProduct');
+
+// =============================== Wishlist Route Ends ==================================== //
 
 // ============================= Admin Login/Register Route ==================================== //
 

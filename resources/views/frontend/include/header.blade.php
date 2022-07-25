@@ -9,7 +9,7 @@
         <div class="cnt-account">
           <ul class="list-unstyled">
             <li><a href="#"><i class="icon fa fa-user"></i>My Account</a></li>
-            <li><a href="#"><i class="icon fa fa-heart"></i>Wishlist</a></li>
+            <li><a href="{{route('show.wishlistProduct')}}"><i class="icon fa fa-heart"></i>Wishlist</a></li>
             <li><a href="#"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
             <li><a href="#"><i class="icon fa fa-check"></i>Checkout</a></li>
             @auth
@@ -83,29 +83,25 @@
           <div class="dropdown dropdown-cart"> <a href="#" class="dropdown-toggle lnk-cart" data-toggle="dropdown">
             <div class="items-cart-inner">
               <div class="basket"> <i class="glyphicon glyphicon-shopping-cart"></i> </div>
-              <div class="basket-item-count"><span class="count">2</span></div>
-              <div class="total-price-basket"> <span class="lbl">cart -</span> <span class="total-price"> <span class="sign">$</span><span class="value">600.00</span> </span> </div>
+              <div class="basket-item-count"><span class="count" id="cartQty"> </span></div>
+              <div class="total-price-basket"> 
+                <span class="lbl">cart -</span> 
+                <span class="total-price">
+                   <span class="sign">$</span>
+                   <span class="value" id="cartSubTotal"></span> 
+                </span> 
+              </div>
             </div>
             </a>
             <ul class="dropdown-menu">
               <li>
-                <div class="cart-item product-summary">
-                  <div class="row">
-                    <div class="col-xs-4">
-                      <div class="image"> <a href="detail.html"><img src="assets/images/cart.jpg" alt=""></a> </div>
+                <!-- Loading Product for MiniCart via Ajax from master.blade file---> 
+                    <div class="miniCart">
+
                     </div>
-                    <div class="col-xs-7">
-                      <h3 class="name"><a href="index.php?page-detail">Simple Product</a></h3>
-                      <div class="price">$600.00</div>
-                    </div>
-                    <div class="col-xs-1 action"> <a href="#"><i class="fa fa-trash"></i></a> </div>
-                  </div>
-                </div>
-                <!-- /.cart-item -->
-                <div class="clearfix"></div>
-                <hr>
+                <!-- Loading Product for MiniCart via Ajax from master.blade file Ends---> 
                 <div class="clearfix cart-total">
-                  <div class="pull-right"> <span class="text">Sub Total :</span><span class='price'>$600.00</span> </div>
+                  <div class="pull-right"> <span class="text">Sub Total :</span><span class='price' id="cartSubTotal"></span> </div>
                   <div class="clearfix"></div>
                   <a href="checkout.html" class="btn btn-upper btn-primary btn-block m-t-20">Checkout</a> </div>
                 <!-- /.cart-total--> 
@@ -140,7 +136,9 @@
             <div class="nav-outer">
               <ul class="nav navbar-nav">
                 <li class="active dropdown yamm-fw"> <a href="{{route('index')}}" data-hover="dropdown">Home</a> </li>
-              
+                @php
+                  $categories = App\Models\Category::select('category_name', 'id')->orderBy('category_name','ASC')->with(['subcategories.subsubcategories' => fn($q) => $q->orderBy('subsubcategory_name', 'ASC')])->get();
+                @endphp
                 @foreach($categories as $category)
                   <li class="dropdown yamm mega-menu"> <a href="home.html" data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">{{$category->category_name}}</a>
                     <ul class="dropdown-menu container">
